@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * Frame de l'arène du jeu
+ * Frame de l'arï¿½ne du jeu
  * @author emds
  *
  */
@@ -42,7 +42,7 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
-	 * Remplace le contenu de txtChat par le contenu du paramètre
+	 * Remplace le contenu de txtChat par le contenu du paramï¿½tre
 	 * @param contenuTxtChat
 	 */
 	public void remplaceChat(String contenuTxtChat) {
@@ -59,7 +59,7 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
-	 * Ajout d'un nouveau personnage (côté serveur)
+	 * Ajout d'un nouveau personnage (cï¿½tï¿½ serveur)
 	 * @param unJoueur
 	 */
 	public void ajoutJoueur(JLabel unJoueur) {
@@ -68,7 +68,7 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
-	 * Ajout ou modification d'un personnage (côté client)
+	 * Ajout ou modification d'un personnage (cï¿½tï¿½ client)
 	 * @param num
 	 * @param unLabel
 	 */
@@ -102,7 +102,7 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
-	 * Traite la touche utilisée
+	 * Traite la touche utilisï¿½e
 	 * @param arg0
 	 */
 	private void txtSaisie_keyPressed(KeyEvent arg0) {
@@ -128,7 +128,7 @@ public class Arene extends JFrame implements Global {
 	public Arene(String typeJeu, Controle controle) {
 		// arene pour un client ou un serveur ?
 		client = (typeJeu.equals("client"));
-		// récupération du controleur
+		// rï¿½cupï¿½ration du controleur
 		this.controle = controle;
 		
 		// les objets graphiques
@@ -141,13 +141,13 @@ public class Arene extends JFrame implements Global {
 		contentPane.setLayout(null);
 		
 		jpnJeu = new JPanel();
-		jpnJeu.setBounds(0, 0, L_ARENE, H_ARENE);
+		jpnJeu.setBounds(0, 0, 400, 600);
 		jpnJeu.setOpaque(false);
 		contentPane.add(jpnJeu);
 		jpnJeu.setLayout(null);
 		
 		jpnMurs = new JPanel();
-		jpnMurs.setBounds(0, 0, L_ARENE, H_ARENE);
+		jpnMurs.setBounds(0, 0, 402, 600);
 		jpnMurs.setOpaque(false);
 		contentPane.add(jpnMurs);
 		jpnMurs.setLayout(null);
@@ -168,7 +168,7 @@ public class Arene extends JFrame implements Global {
 		
 		JScrollPane jspChat = new JScrollPane();
 		jspChat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		jspChat.setBounds(0, H_ARENE + H_SAISIE, L_ARENE, H_CHAT - H_SAISIE - 7*MARGE);
+		jspChat.setBounds(400, -2, 402, 602);
 		contentPane.add(jspChat);
 		
 		txtChat = new JTextArea();
