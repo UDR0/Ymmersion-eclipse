@@ -14,13 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Frame d'entrée dans le jeu
+ * Frame d'entrï¿½e dans le jeu
  * @author emds
  *
  */
 public class EntreeJeu extends JFrame {
 
-	// propriétés
+	// propriï¿½tï¿½s
 	private JPanel contentPane;
 	private JTextField txtIp;
 	private Controle controle;
@@ -33,14 +33,14 @@ public class EntreeJeu extends JFrame {
 	}
 	
 	/**
-	 * clic sur le bouton Exit pour arrêter l'application
+	 * clic sur le bouton Exit pour arrï¿½ter l'application
 	 */
 	private void btnExit_clic() {
 		System.exit(0);
 	}
 	
 	/**
-	 * clic sur le bouton Connect pour se connecter à un serveur
+	 * clic sur le bouton Connect pour se connecter ï¿½ un serveur
 	 */
 	private void btnConnect_clic() {
 		controle.evenementVue(this, txtIp.getText());
@@ -106,7 +106,7 @@ public class EntreeJeu extends JFrame {
 		btnExit.setBounds(186, 91, 89, 23);
 		contentPane.add(btnExit);
 		
-		// récupération du controleur
+		// rï¿½cupï¿½ration du controleur
 		this.controle = controle ;
 	}
 }

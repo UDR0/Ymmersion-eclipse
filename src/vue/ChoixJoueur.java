@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
  */
 public class ChoixJoueur extends JFrame implements Global {
 
-	// propriétés
+	// propriï¿½tï¿½s
 	private Integer numPerso ;
 	private Controle controle ;
 	
@@ -41,7 +41,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	}
 	
 	/**
-	 * Clic sur la flèche "précédent"
+	 * Clic sur la flï¿½che "prï¿½cï¿½dent"
 	 */
 	private void lblPrecedent_clic() {
 		numPerso = ((numPerso+1)%NBPERSOS)+1;
@@ -49,7 +49,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	}
 	
 	/**
-	 * Clic sur la flèche "suivant"
+	 * Clic sur la flï¿½che "suivant"
 	 */
 	private void lblSuivant_clic() {
 		numPerso = (numPerso%NBPERSOS)+1 ;
@@ -60,7 +60,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Clic sur GO
 	 */
 	private void lblGo_clic() {
-		// contrôle si le pseudo a été saisi
+		// contrï¿½le si le pseudo a ï¿½tï¿½ saisi
 		if (txtPseudo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
 			txtPseudo.requestFocus();
@@ -146,19 +146,19 @@ public class ChoixJoueur extends JFrame implements Global {
 		
 		lblPersonnage = new JLabel("");
 		lblPersonnage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPersonnage.setBounds(142, 112, 120, 120);
+		lblPersonnage.setBounds(152, 79, 120, 120);
 		contentPane.add(lblPersonnage);
 		
 		txtPseudo = new JTextField();
-		txtPseudo.setBounds(142, 245, 120, 20);
+		txtPseudo.setBounds(142, 246, 120, 20);
 		contentPane.add(txtPseudo);
 		txtPseudo.setColumns(10);
 		
-		lblGo.setBounds(311, 202, 65, 61);
+		lblGo.setBounds(336, 224, 56, 51);
 		contentPane.add(lblGo);
-		lblSuivant.setBounds(301, 145, 25, 46);
+		lblSuivant.setBounds(290, 112, 40, 61);
 		contentPane.add(lblSuivant);
-		lblPrecedent.setBounds(65, 146, 31, 45);
+		lblPrecedent.setBounds(74, 112, 40, 61);
 		contentPane.add(lblPrecedent);
 		
 		JLabel lblFond = new JLabel("");
@@ -171,7 +171,7 @@ public class ChoixJoueur extends JFrame implements Global {
 		
 		// initialisations
 		this.controle = controle ;
-		numPerso = 1; // premier personnage par défaut
+		numPerso = 1; // premier personnage par dï¿½faut
 		affichePerso(); // affichage du premier personnage
 		
 	}
