@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import controleur.Controle;
 import controleur.Global;
 import outils.connexion.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Gestion du jeu c�t� serveur
@@ -17,7 +19,6 @@ public class JeuServeur extends Jeu implements Global {
 	// propri�t�s
 	private ArrayList<Mur> lesMurs = new ArrayList<Mur>() ;
 	private Hashtable<Connection, Joueur> lesJoueurs = new Hashtable<Connection, Joueur>() ;
-	private Hashtable<Connection, String> lesClasses = new Hashtable<>();
 	private ArrayList<Joueur> lesJoueursDansLordre = new ArrayList<Joueur>() ;
 	
 	/**
@@ -45,7 +46,7 @@ public class JeuServeur extends Jeu implements Global {
 	 * @param label
 	 */
 	public void nouveauLabelJeu(Label label) {
-		controle.evenementModele(this, "ajout joueur", joueur.getLabel(), joueur.getClasse());
+		controle.evenementModele(this, "ajout joueur", label.getjLabel());
 	}
 	
 	/**
@@ -53,13 +54,7 @@ public class JeuServeur extends Jeu implements Global {
 	 */
 	public void envoi(Object info) {
 		for (Connection connection : lesJoueurs.keySet()) {
-		    super.envoi(connection, info);
-
-		    // Send player class update
-		    Joueur joueur = lesJoueurs.get(connection);
-		    if (joueur != null && lesClasses.containsKey(connection)) {
-		        super.envoi(connection, "update_player:" + joueur.getPseudo() + "," + lesClasses.get(connection));
-		    }
+			super.envoi(connection, info);
 		}
 	}
 
@@ -83,22 +78,40 @@ public class JeuServeur extends Jeu implements Global {
 					super.envoi(connection, joueur.getMessage());
 				}
 				// initialisation du nouveau joueur (positionnement al�atoire...)
-				
-				// Store player class
-				String playerClass = infos[2];
-				lesClasses.put(connection, playerClass);
-
-				// Initialize player (positioning, etc.)
-				lesJoueurs.get(connection).initPerso(infos[1], Integer.parseInt(infos[3]), lesJoueurs, lesMurs);
+				lesJoueurs.get(connection).initPerso(
+					    infos[1],                       // pseudo
+					    Integer.parseInt(infos[2]),     // numPerso
+					    infos[3],                       // classe <--- new parameter
+					    lesJoueurs, 
+					    lesMurs
+					);
 				// insertion du nouveau joueur dans la liste dans l'ordre, pour l'envoyer dans l'ordre aux joueurs suivants
 				lesJoueursDansLordre.add(lesJoueurs.get(connection)) ;
 				laPhrase = "***"+lesJoueurs.get(connection).getPseudo()+" vient de se connecter ***" ;
 				controle.evenementModele(this, "ajout phrase", laPhrase);
 				break ;
 			case CHAT :
-				laPhrase = lesJoueurs.get(connection).getPseudo()+" > "+infos[1] ;
-				controle.evenementModele(this, "ajout phrase", laPhrase);
-				break ;
+			    // 1) Get the current time in HH:mm
+			    String timeStamp = new SimpleDateFormat("HH:mm").format(new Date());
+			    
+			    // 2) Retrieve class and pseudo from the Joueur
+			    Joueur sender = lesJoueurs.get(connection);
+			    String classe = sender.getClasse();
+			    String pseudo = sender.getPseudo();
+			    
+			    // 3) The chat text itself is in infos[1]
+			    String messageText = infos[1];
+			    
+			    // 4) Combine them all
+			    laPhrase = timeStamp 
+			               + " [" + classe + "] "
+			               + pseudo
+			               + " > "
+			               + messageText;
+			    
+			    // 5) Pass it to the controller
+			    controle.evenementModele(this, "ajout phrase", laPhrase);
+			    break;
 		}
 	}
 	
