@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 /**
  * Frame du choix du joueur
@@ -31,8 +32,8 @@ public class ChoixJoueur extends JFrame implements Global {
 	// objets graphiques
 	private JPanel contentPane;
 	private JTextField txtPseudo;
-	private JTextField txtClass;
 	private JLabel lblPersonnage;
+	private JComboBox<String> cbClasse;
 
 	/**
 	 * Affichage du personnage
@@ -61,14 +62,30 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Clic sur GO
 	 */
 	private void lblGo_clic() {
-		// contr�le si le pseudo a �t� saisi
-		if (txtPseudo.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
-			txtPseudo.requestFocus();
-		}else{
-			controle.evenementVue(this, PSEUDO + SEPARE + txtPseudo.getText() + SEPARE + txtClass.getText() + SEPARE + numPerso);
-		}
-	}
+        // Check pseudo
+        if (txtPseudo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                null, 
+                "La saisie du pseudo est obligatoire"
+            );
+            txtPseudo.requestFocus();
+            return;
+        }
+        // 3) Retrieve selected item from JComboBox
+        String classe = (String) cbClasse.getSelectedItem();
+
+        // Send data along (pseudo, class, etc.)
+        controle.evenementVue(
+            this,
+            PSEUDO
+                + SEPARE
+                + txtPseudo.getText()
+                + SEPARE
+                + numPerso
+                + SEPARE
+                + classe
+        );
+    }
 	
 	/**
 	 * Change l'apparence de la souris en "normal"
@@ -96,11 +113,6 @@ public class ChoixJoueur extends JFrame implements Global {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		txtClass = new JTextField();
-		txtClass.setBounds(142, 245, 120, 20);
-		contentPane.add(txtClass);
-		txtClass.setColumns(10);
 		
 		JLabel lblPrecedent = new JLabel("");
 		lblPrecedent.addMouseListener(new MouseAdapter() {
@@ -152,19 +164,29 @@ public class ChoixJoueur extends JFrame implements Global {
 		
 		lblPersonnage = new JLabel("");
 		lblPersonnage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPersonnage.setBounds(152, 79, 120, 120);
+		lblPersonnage.setBounds(142, 112, 120, 120);
 		contentPane.add(lblPersonnage);
 		
+		cbClasse = new JComboBox<>(new String[] {
+	            "gobelin", 
+	            "archer", 
+	            "wizard", 
+	            "doctor"
+	        });
+		// Adjust size/position as needed
+		cbClasse.setBounds(142, 215, 120, 20);
+		contentPane.add(cbClasse);
+		
 		txtPseudo = new JTextField();
-		txtPseudo.setBounds(142, 220, 120, 20);
+		txtPseudo.setBounds(142, 245, 120, 20);
 		contentPane.add(txtPseudo);
 		txtPseudo.setColumns(10);
 		
-		lblGo.setBounds(336, 224, 56, 51);
+		lblGo.setBounds(311, 202, 65, 61);
 		contentPane.add(lblGo);
-		lblSuivant.setBounds(290, 112, 40, 61);
+		lblSuivant.setBounds(301, 145, 25, 46);
 		contentPane.add(lblSuivant);
-		lblPrecedent.setBounds(74, 112, 40, 61);
+		lblPrecedent.setBounds(65, 146, 31, 45);
 		contentPane.add(lblPrecedent);
 		
 		JLabel lblFond = new JLabel("");
