@@ -18,14 +18,15 @@ import outils.connexion.Connection;
  */
 public class Joueur extends Objet implements Global {
 
-	// propriétés
+	// propriï¿½tï¿½s
 	private String pseudo ;
+	private String classe;
 	private int numPerso ;
 	private Label message ;
 	private JeuServeur jeuServeur ;
 	private int vie ; // vie restante du joueur
-	private int orientation ; // tourné vers la gauche (0) ou vers la droite (1)
-	private int etape ; // numéro d'étape dans l'animation
+	private int orientation ; // tournï¿½ vers la gauche (0) ou vers la droite (1)
+	private int etape ; // numï¿½ro d'ï¿½tape dans l'animation
 	
 	/**
 	 * Constructeur
@@ -43,6 +44,14 @@ public class Joueur extends Objet implements Global {
 	public String getPseudo() {
 		return pseudo;
 	}
+	
+	public void setClasse(String classe) {
+        this.classe = classe;
+    }
+	
+	public String getClasse() {
+        return classe;
+    }
 
 	/**
 	 * Affiche le personnage et son message
@@ -52,34 +61,42 @@ public class Joueur extends Objet implements Global {
 	public void affiche(String etat, int etape) {
 		label.getjLabel().setBounds(posX, posY, L_PERSO, H_PERSO);
 		label.getjLabel().setIcon(new ImageIcon(PERSO+numPerso+etat+etape+"d"+orientation+EXTIMAGE));
-		message.getjLabel().setBounds(posX-10, posY+H_PERSO, L_PERSO+10, H_MESSAGE);
-		message.getjLabel().setText(pseudo+" : "+vie);
-		// envoi du personnage à tous les autres joueurs
+		message.getjLabel().setBounds(posX - 10, 
+                posY + H_PERSO, 
+                L_PERSO + 10, 
+                H_MESSAGE * 3);
+		message.getjLabel().setText(
+			    "<html>" + pseudo + " : " + vie + "<br>" + classe + "</html>"
+			);
+		// envoi du personnage ï¿½ tous les autres joueurs
 		jeuServeur.envoi(label);
 		jeuServeur.envoi(message);
 	}
 	
 	/**
-	 * Initialisation d'un joueur (pseudo et numéro)
+	 * Initialisation d'un joueur (pseudo et numï¿½ro)
 	 * @param pseudo
 	 * @param numPerso
 	 */
-	public void initPerso(String pseudo, int numPerso, Hashtable<Connection, Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+	public void initPerso(String pseudo, int numPerso, String classe,
+            Hashtable<Connection, Joueur> lesJoueurs,
+            ArrayList<Mur> lesMurs) {
 		this.pseudo = pseudo ;
 		this.numPerso = numPerso ;
-		// création de l'affichage du personnage
+		this.classe = classe;
+		// crï¿½ation de l'affichage du personnage
 		label = new Label(Label.getNbLabel(), new JLabel()) ;
 		Label.setNbLabel(Label.getNbLabel()+1);
 		label.getjLabel().setHorizontalAlignment(SwingConstants.CENTER);
 		label.getjLabel().setVerticalAlignment(SwingConstants.CENTER);
 		jeuServeur.nouveauLabelJeu(label);
-		// création de l'affichage du message sous le personnage
+		// crï¿½ation de l'affichage du message sous le personnage
 		message = new Label(Label.getNbLabel(), new JLabel()) ;
 		Label.setNbLabel(Label.getNbLabel()+1);
 		message.getjLabel().setHorizontalAlignment(SwingConstants.CENTER);
 		message.getjLabel().setFont(new Font("Dialog", Font.PLAIN, 8));
 		jeuServeur.nouveauLabelJeu(message);
-		// calcul de la première position aléatoire
+		// calcul de la premiï¿½re position alï¿½atoire
 		premierePosition(lesJoueurs, lesMurs) ;
 		// affichage du personnage
 		affiche(MARCHE, etape) ;
@@ -93,7 +110,7 @@ public class Joueur extends Objet implements Global {
 	}
 	
 	/**
-	 * Contrôle si le joueur chevauche un des autres joueurs
+	 * Contrï¿½le si le joueur chevauche un des autres joueurs
 	 * @param lesJoueurs
 	 * @return
 	 */
@@ -109,7 +126,7 @@ public class Joueur extends Objet implements Global {
 	}
 	
 	/**
-	 * Contrôle si le joueur chevauche un des murs
+	 * Contrï¿½le si le joueur chevauche un des murs
 	 * @param lesMurs
 	 * @return
 	 */
@@ -123,7 +140,7 @@ public class Joueur extends Objet implements Global {
 	}
 	
 	/**
-	 * Calcul de la première position aléatoire du joueur (sans chevaucher un autre joueur ou un mur)
+	 * Calcul de la premiï¿½re position alï¿½atoire du joueur (sans chevaucher un autre joueur ou un mur)
 	 * @param lesJoueurs
 	 * @param lesMurs
 	 */
