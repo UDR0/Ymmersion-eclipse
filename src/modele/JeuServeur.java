@@ -8,15 +8,16 @@ import controleur.Global;
 import outils.connexion.Connection;
 
 /**
- * Gestion du jeu côté serveur
+ * Gestion du jeu cï¿½tï¿½ serveur
  * @author emds
  *
  */
 public class JeuServeur extends Jeu implements Global {
 
-	// propriétés
+	// propriï¿½tï¿½s
 	private ArrayList<Mur> lesMurs = new ArrayList<Mur>() ;
 	private Hashtable<Connection, Joueur> lesJoueurs = new Hashtable<Connection, Joueur>() ;
+	private Hashtable<Connection, String> lesClasses = new Hashtable<>();
 	private ArrayList<Joueur> lesJoueursDansLordre = new ArrayList<Joueur>() ;
 	
 	/**
@@ -25,12 +26,12 @@ public class JeuServeur extends Jeu implements Global {
 	 */
 	public JeuServeur(Controle controle) {
 		super.controle = controle ;
-		// initialisation du rang du dernier label mémorisé
+		// initialisation du rang du dernier label mï¿½morisï¿½
 		Label.setNbLabel(0);
 	}
 	
 	/**
-	 * Génération des murs
+	 * Gï¿½nï¿½ration des murs
 	 */
 	public void constructionMurs() {
 		for (int k=0 ; k<NBMURS ; k++) {
@@ -40,19 +41,25 @@ public class JeuServeur extends Jeu implements Global {
 	}
 	
 	/**
-	 * Demande au controleur d'ajouter un joueuer dans l'arêne
+	 * Demande au controleur d'ajouter un joueuer dans l'arï¿½ne
 	 * @param label
 	 */
 	public void nouveauLabelJeu(Label label) {
-		controle.evenementModele(this, "ajout joueur", label.getjLabel());
+		controle.evenementModele(this, "ajout joueur", joueur.getLabel(), joueur.getClasse());
 	}
 	
 	/**
-	 * Envoi à tous les clients
+	 * Envoi ï¿½ tous les clients
 	 */
 	public void envoi(Object info) {
 		for (Connection connection : lesJoueurs.keySet()) {
-			super.envoi(connection, info);
+		    super.envoi(connection, info);
+
+		    // Send player class update
+		    Joueur joueur = lesJoueurs.get(connection);
+		    if (joueur != null && lesClasses.containsKey(connection)) {
+		        super.envoi(connection, "update_player:" + joueur.getPseudo() + "," + lesClasses.get(connection));
+		    }
 		}
 	}
 
@@ -70,13 +77,19 @@ public class JeuServeur extends Jeu implements Global {
 			case PSEUDO : 
 				// envoi des murs au nouveau joueur
 				controle.evenementModele(this, "envoi panel murs", connection);
-				// envoi des précédents joueurs au nouveau joueur
+				// envoi des prï¿½cï¿½dents joueurs au nouveau joueur
 				for(Joueur joueur : lesJoueursDansLordre) {
 					super.envoi(connection, joueur.getLabel());
 					super.envoi(connection, joueur.getMessage());
 				}
-				// initialisation du nouveau joueur (positionnement aléatoire...)
-				lesJoueurs.get(connection).initPerso(infos[1], Integer.parseInt(infos[2]), lesJoueurs, lesMurs);
+				// initialisation du nouveau joueur (positionnement alï¿½atoire...)
+				
+				// Store player class
+				String playerClass = infos[2];
+				lesClasses.put(connection, playerClass);
+
+				// Initialize player (positioning, etc.)
+				lesJoueurs.get(connection).initPerso(infos[1], Integer.parseInt(infos[3]), lesJoueurs, lesMurs);
 				// insertion du nouveau joueur dans la liste dans l'ordre, pour l'envoyer dans l'ordre aux joueurs suivants
 				lesJoueursDansLordre.add(lesJoueurs.get(connection)) ;
 				laPhrase = "***"+lesJoueurs.get(connection).getPseudo()+" vient de se connecter ***" ;

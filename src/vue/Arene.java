@@ -62,9 +62,27 @@ public class Arene extends JFrame implements Global {
 	 * Ajout d'un nouveau personnage (c�t� serveur)
 	 * @param unJoueur
 	 */
-	public void ajoutJoueur(JLabel unJoueur) {
-		jpnJeu.add(unJoueur);
-		jpnJeu.repaint();
+	public void ajoutJoueur(JLabel unJoueur, String playerClass) {
+	    // Ensure player is properly positioned
+	    int x = unJoueur.getX();
+	    int y = unJoueur.getY();
+
+	    // If X or Y is 0, manually set a position
+	    if (x == 0 && y == 0) {
+	        x = 100;  // Default X position
+	        y = 100;  // Default Y position
+	        unJoueur.setLocation(x, y);
+	    }
+
+	    // Check if player already has a class label
+	    JLabel lblClass = new JLabel(playerClass);
+	    lblClass.setBounds(x, y - 20, 100, 20);  // Position above player
+
+	    // Add both labels to the game panel
+	    jpnJeu.add(lblClass);
+	    jpnJeu.add(unJoueur);
+
+	    jpnJeu.repaint();
 	}
 	
 	/**
@@ -72,14 +90,29 @@ public class Arene extends JFrame implements Global {
 	 * @param num
 	 * @param unLabel
 	 */
-	public void ajoutModifJoueur(int num, JLabel unLabel) {
-		// tentative de suppression
-		try {
-			jpnJeu.remove(num);
-		} catch (ArrayIndexOutOfBoundsException  e) {
-		}
-		jpnJeu.add(unLabel, num);
-		jpnJeu.repaint();	
+	public void ajoutModifJoueur(int num, JLabel unLabel, String playerClass) {
+	    try {
+	        jpnJeu.remove(num);
+	    } catch (ArrayIndexOutOfBoundsException e) {
+	    }
+
+	    // Ensure player label is positioned correctly
+	    int x = unLabel.getX();
+	    int y = unLabel.getY();
+
+	    if (x == 0 && y == 0) {
+	        x = 100;  // Default position
+	        y = 100;
+	        unLabel.setLocation(x, y);
+	    }
+
+	    // Check if player already has a class label
+	    JLabel lblClass = new JLabel(playerClass);
+	    lblClass.setBounds(x, y - 20, 100, 20);  // Position above player
+
+	    jpnJeu.add(lblClass);
+	    jpnJeu.add(unLabel, num);
+	    jpnJeu.repaint();
 	}
 	
 	

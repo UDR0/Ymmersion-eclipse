@@ -6,14 +6,17 @@ import controleur.Controle;
 import outils.connexion.Connection;
 
 /**
- * Gestion du jeu côté client
+ * Gestion du jeu cï¿½tï¿½ client
  * @author emds
  *
  */
 public class JeuClient extends Jeu {
 
-	// propriétés
+	// propriï¿½tï¿½s
 	private Connection connection ;
+	private String playerName;
+	private String playerClass;
+	private int characterSkin;
 	
 	/**
 	 * Controleur
@@ -27,18 +30,43 @@ public class JeuClient extends Jeu {
 	public void setConnection(Connection connection) {
 		this.connection = connection ;
 	}
+	
+	public void setPlayerInfo(String name, String playerClass, int skin) {
+	    this.playerName = name;
+	    this.playerClass = playerClass;
+	    this.characterSkin = skin;
+	    
+	    // Send player information to the server
+	    envoi("player_info:" + name + "," + playerClass + "," + skin);
+	}
 
 	@Override
 	public void reception(Connection connection, Object info) {
-		// arrivée du panel des murs
+		// arrivï¿½e du panel des murs
 		if(info instanceof JPanel) {
 			controle.evenementModele(this, "ajout panel murs", info);
-		// arrivée d'un label correspondant à un personnage
+		// arrivï¿½e d'un label correspondant ï¿½ un personnage
 		}else if(info instanceof Label) {
-			controle.evenementModele(this, "ajout joueur", info);
-		// arrivée du contenu du chat	
+		    // Retrieve the player's class from the stored data
+		    Joueur joueur = (Joueur) info;
+		    String playerName = joueur.getPseudo();
+		    String playerClass = joueur.getClasse(); // Assuming there's a getClasse() method
+
+		    controle.evenementModele(this, "ajout joueur", playerName, playerClass);
+		}
+		// arrivï¿½e du contenu du chat	
 		}else if(info instanceof String) {
-			controle.evenementModele(this, "remplace chat", info);
+		    String message = (String) info;
+
+		    // Handling player info update from the server
+		    if (message.startsWith("update_player:")) {
+		        String[] data = message.substring(14).split(",");
+		        String name = data[0];
+		        String playerClass = data[1];
+		        controle.evenementModele(this, "update_player_display", name, playerClass);
+		    } else {
+		        controle.evenementModele(this, "remplace chat", info);
+		    }
 		}
 		
 	}

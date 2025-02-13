@@ -31,6 +31,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	// objets graphiques
 	private JPanel contentPane;
 	private JTextField txtPseudo;
+	private JTextField txtClass;
 	private JLabel lblPersonnage;
 
 	/**
@@ -65,7 +66,7 @@ public class ChoixJoueur extends JFrame implements Global {
 			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
 			txtPseudo.requestFocus();
 		}else{
-			controle.evenementVue(this, PSEUDO+SEPARE+txtPseudo.getText()+SEPARE+numPerso);
+			controle.evenementVue(this, PSEUDO + SEPARE + txtPseudo.getText() + SEPARE + txtClass.getText() + SEPARE + numPerso);
 		}
 	}
 	
@@ -95,6 +96,11 @@ public class ChoixJoueur extends JFrame implements Global {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		txtClass = new JTextField();
+		txtClass.setBounds(142, 245, 120, 20);
+		contentPane.add(txtClass);
+		txtClass.setColumns(10);
 		
 		JLabel lblPrecedent = new JLabel("");
 		lblPrecedent.addMouseListener(new MouseAdapter() {
@@ -150,7 +156,7 @@ public class ChoixJoueur extends JFrame implements Global {
 		contentPane.add(lblPersonnage);
 		
 		txtPseudo = new JTextField();
-		txtPseudo.setBounds(142, 246, 120, 20);
+		txtPseudo.setBounds(142, 220, 120, 20);
 		contentPane.add(txtPseudo);
 		txtPseudo.setColumns(10);
 		
