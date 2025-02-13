@@ -6,13 +6,13 @@ import controleur.Controle;
 import outils.connexion.Connection;
 
 /**
- * Gestion du jeu côté client
+ * Gestion du jeu cÃ´tÃ© client
  * @author emds
  *
  */
 public class JeuClient extends Jeu {
 
-	// propriétés
+	// propriÃ©tÃ©s
 	private Connection connection ;
 	
 	/**
@@ -30,13 +30,13 @@ public class JeuClient extends Jeu {
 
 	@Override
 	public void reception(Connection connection, Object info) {
-		// arrivée du panel des murs
+		// arrivÃ©e du panel des murs
 		if(info instanceof JPanel) {
 			controle.evenementModele(this, "ajout panel murs", info);
-		// arrivée d'un label correspondant à un personnage
+		// arrivÃ©e d'un label correspondant Ã  un personnage
 		}else if(info instanceof Label) {
 			controle.evenementModele(this, "ajout joueur", info);
-		// arrivée du contenu du chat	
+		// arrivÃ©e du contenu du chat	
 		}else if(info instanceof String) {
 			controle.evenementModele(this, "remplace chat", info);
 		}

@@ -4,23 +4,23 @@ import controleur.Controle;
 import outils.connexion.Connection;
 
 /**
- * Informations et méthodes communes aux jeux client et serveur
+ * Informations et mÃ©thodes communes aux jeux client et serveur
  * @author emds
  *
  */
 public abstract class Jeu {
 
-	// propriétés
+	// propriÃ©tÃ©s
 	protected Controle controle ;
 	
 	/**
-	 * Réception d'une connexion (pour communiquer avec un ordinateur distant)
+	 * RÃ©ception d'une connexion (pour communiquer avec un ordinateur distant)
 	 * @param connection
 	 */
 	public abstract void setConnection(Connection connection) ;
 	
 	/**
-	 * Réception d'une information provenant de l'ordinateur distant
+	 * RÃ©ception d'une information provenant de l'ordinateur distant
 	 * @param connection
 	 * @param info
 	 */
@@ -36,7 +36,7 @@ public abstract class Jeu {
 	}
 	
 	/**
-	 * Déconnexion de l'ordinateur distant
+	 * DÃ©connexion de l'ordinateur distant
 	 * @param connection
 	 */
 	public abstract void deconnection(Connection connection) ;

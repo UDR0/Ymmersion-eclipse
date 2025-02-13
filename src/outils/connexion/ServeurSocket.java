@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ServeurSocket extends Thread {
     private Object leRecepteur;
     private ServerSocket serverSocket;
-    private static final int MAX_CONNECTIONS = 1;
+    private static final int MAX_CONNECTIONS = 100;
     private AtomicInteger activeConnections = new AtomicInteger(0);
 
     public ServeurSocket(Object leRecepteur, int port) {

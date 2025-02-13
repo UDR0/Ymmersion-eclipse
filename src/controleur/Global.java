@@ -21,6 +21,7 @@ public interface Global {
 
 	// images
 	public static final String
+	FONDENTREE = CHEMINFONDS + "fondentree.png",
 	FONDCHOIX = CHEMINFONDS + "choice.png",	
 	FONDARENE = CHEMINFONDS+"fondarene.jpg",
 	MUR = CHEMINMURS + "mur.gif" ;
@@ -42,7 +43,6 @@ public interface Global {
 	public static final int
 		PSEUDO = 0,
 		CHAT = 1 ;
-	
 	// tailles
 	public static final int
 		H_ARENE = 600,
