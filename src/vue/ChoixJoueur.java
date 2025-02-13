@@ -164,7 +164,7 @@ public class ChoixJoueur extends JFrame implements Global {
 		
 		lblPersonnage = new JLabel("");
 		lblPersonnage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPersonnage.setBounds(142, 112, 120, 120);
+		lblPersonnage.setBounds(142, 80, 120, 120);
 		contentPane.add(lblPersonnage);
 		
 		cbClasse = new JComboBox<>(new String[] {
@@ -174,19 +174,19 @@ public class ChoixJoueur extends JFrame implements Global {
 	            "doctor"
 	        });
 		// Adjust size/position as needed
-		cbClasse.setBounds(142, 215, 120, 20);
+		cbClasse.setBounds(54, 244, 78, 20);
 		contentPane.add(cbClasse);
 		
 		txtPseudo = new JTextField();
-		txtPseudo.setBounds(142, 245, 120, 20);
+		txtPseudo.setBounds(142, 244, 120, 20);
 		contentPane.add(txtPseudo);
 		txtPseudo.setColumns(10);
 		
 		lblGo.setBounds(311, 202, 65, 61);
 		contentPane.add(lblGo);
-		lblSuivant.setBounds(301, 145, 25, 46);
+		lblSuivant.setBounds(295, 121, 42, 46);
 		contentPane.add(lblSuivant);
-		lblPrecedent.setBounds(65, 146, 31, 45);
+		lblPrecedent.setBounds(79, 122, 42, 45);
 		contentPane.add(lblPrecedent);
 		
 		JLabel lblFond = new JLabel("");
