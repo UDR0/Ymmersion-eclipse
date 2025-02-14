@@ -132,7 +132,7 @@ public class Joueur extends Objet implements Global {
 	private static Integer var = 1;
 
 	private void premierePosition(Hashtable<Connection, Joueur> lesJoueurs) {
-		if (var < 3) {
+		if (var < 10) {
 	        // Si moins de 10 joueurs, on affiche les personnages sur la même ligne
 	        posX = L_PERSO * var;  // Position horizontale calculée en fonction de var
 	        var++;  // Incrémente pour le prochain joueur
