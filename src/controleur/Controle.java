@@ -22,7 +22,7 @@ import vue.EntreeJeu;
  */
 public class Controle implements Global {
 	
-	// propriétés
+	// propriï¿½tï¿½s
 	private EntreeJeu frmEntreeJeu ;
 	private Jeu leJeu ;
 	private Arene frmArene ;
@@ -30,7 +30,7 @@ public class Controle implements Global {
 	private Connection connection ;
 
 	/**
-	 * Méthode de démarrage
+	 * Mï¿½thode de dï¿½marrage
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Controle implements Global {
 	}
 	
 	/**
-	 * Récuépration de la connexion
+	 * Rï¿½cuï¿½pration de la connexion
 	 * @param connection
 	 */
 	public void setConnection(Connection connection) {
@@ -66,11 +66,11 @@ public class Controle implements Global {
 	}
 	
 	/* **********************************************************************************************
-	 * Evénements provenant de la vue
+	 * Evï¿½nements provenant de la vue
 	 * **********************************************************************************************/
 	
 	/**
-	 * Gère les événements provenant de la vue
+	 * Gï¿½re les ï¿½vï¿½nements provenant de la vue
 	 * @param uneFrame
 	 * @param info
 	 */
@@ -86,7 +86,7 @@ public class Controle implements Global {
 	}
 
 	/**
-	 * Gère les événements provenant de la frame EntreeJeu
+	 * Gï¿½re les ï¿½vï¿½nements provenant de la frame EntreeJeu
 	 * @param info
 	 */
 	private void evenementEntreeJeu(Object info) {
@@ -95,7 +95,7 @@ public class Controle implements Global {
 			this.leJeu = new JeuServeur(this) ;
 			this.frmEntreeJeu.dispose();
 			this.frmArene = new Arene("serveur", this);
-			((JeuServeur)leJeu).constructionMurs();
+			//((JeuServeur)leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		}else{
 			if ((new ClientSocket((String)info, PORT, this)).isConnexionOk()) {
@@ -111,7 +111,7 @@ public class Controle implements Global {
 	}
 
 	/**
-	 * Gère les événements provenant de la frame ChoixJoueur
+	 * Gï¿½re les ï¿½vï¿½nements provenant de la frame ChoixJoueur
 	 * @param info
 	 */
 	private void evenementChoixJoueur(Object info) {
@@ -124,7 +124,7 @@ public class Controle implements Global {
 	}
 
 	/**
-	 * Gère les événements provenant de la frame Arene
+	 * Gï¿½re les ï¿½vï¿½nements provenant de la frame Arene
 	 * @param info
 	 */
 	private void evenementArene(Object info) {
@@ -133,11 +133,11 @@ public class Controle implements Global {
 	
 	
 	/* **********************************************************************************************
-	 * Evénements provenant du modèle
+	 * Evï¿½nements provenant du modï¿½le
 	 * **********************************************************************************************/
 
 	/**
-	 * Gère les événéments provenant du modèle (de jeuClient ou jeuServeur)
+	 * Gï¿½re les ï¿½vï¿½nï¿½ments provenant du modï¿½le (de jeuClient ou jeuServeur)
 	 * @param unJeu
 	 * @param ordre
 	 * @param info
@@ -152,7 +152,7 @@ public class Controle implements Global {
 	}
 	
 	/**
-	 * Gère les événements provenant du jeu serveur
+	 * Gï¿½re les ï¿½vï¿½nements provenant du jeu serveur
 	 * @param ordre
 	 * @param info
 	 */
@@ -170,7 +170,7 @@ public class Controle implements Global {
 	}
 	
 	/**
-	 * Gère les événements provenant du jeu client
+	 * Gï¿½re les ï¿½vï¿½nements provenant du jeu client
 	 * @param ordre
 	 * @param info
 	 */

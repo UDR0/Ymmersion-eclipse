@@ -1,5 +1,6 @@
 package vue;
 
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -174,9 +175,11 @@ public class Arene extends JFrame implements Global {
 		txtChat = new JTextArea();
 		jspChat.setViewportView(txtChat);
 		
-		JLabel lblFond = new JLabel("");
-		lblFond.setIcon(new ImageIcon(FONDARENE));
-		lblFond.setBounds(0, 0, L_ARENE, H_ARENE);
-		contentPane.add(lblFond);
+		// Charger et redimensionner l'image de fond
+        ImageIcon fondIcon = new ImageIcon(FONDARENE);
+        Image fondImage = fondIcon.getImage().getScaledInstance(400, 600, Image.SCALE_SMOOTH);
+        JLabel lblFond = new JLabel(new ImageIcon(fondImage));
+        lblFond.setBounds(0, 0, 400, 600);
+        contentPane.add(lblFond);
 	}
 }

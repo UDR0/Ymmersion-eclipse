@@ -53,9 +53,9 @@ public interface Global {
 		MARGE = 5 ; // �carts entre les objets
 	
 	// murs
-	public static final int
-		NBMURS = 20, // nombre de murs
-		H_MUR = 35, // hauteur du mur
-		L_MUR = 34 ; // largeur du mur
+	//public static final int
+		//NBMURS = 20, // nombre de murs
+		//H_MUR = 35, // hauteur du mur
+		//L_MUR = 34 ; // largeur du mur
 	
 }
